@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>KasirKu</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../tailwind.css">
+    <style>
+        input:checked~.dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="h-screen bg-gray-100 relative p-6 pt-36">
+        <nav
+            class="font-sans flex absolute top-0 left-0 right-0 flex-col text-center py-4 px-6 bg-green-500 shadow sm:items-baseline w-full">
+            <div class="text-white flex justify-between w-full items-center">
+                <h1 class="font-bold text-xl">KasirKu</h1>
+                <span id="tanggal" class="font-bold"></span>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reloadBtn">
+                        Reload
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="closeBtn">
+                        X Keluar
+                    </button>
+
+                </div>
+            </div>
+            <div class="flex justify-center text-white bg-green-700 mt-2 w-full">
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menuBarang"
+                    href="barang.html">Barang</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pelanggan.html">Pelanggan</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all font-bold" id="menu"
+                    href="transaksi.html">Transaksi</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="riwayat.html">Riwayat</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pengaturan.html">Pengaturan</a>
+            </div>
+        </nav>
+        <!-- <h1 class="text-2xl text-gray-600">Barang</h1> -->
+        <div class="h-full grid grid-cols-3 gap-4">
+            <div class="relative h-full bg-white overflow-auto p-5">
+                <h1 class="font-bold text-lg">Tambah Barang</h1>
+                <form name="form-tambah" id="form-tambah">
+                    <div class="py-2">
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Kode Barang</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text" readonly
+                                name="kode_barang" id="kode_barang" placeholder="Kode Barang" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Nama Barang:</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="text"
+                                name="nama_barang" id="nama_barang" placeholder="Nama Barang" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Harga Satuan:</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="number"
+                                name="harga_satuan" id="harga_satuan" placeholder="Harga Satuan" required>
+                        </div>
+                        <div class="mb-4">
+                            <div class="flex items-center w-full">
+                                <label for="tipe" class="flex items-center cursor-pointer">
+                                    <div class="mr-3 text-grey-darker text-sm font-bold">
+                                        Grosir
+                                    </div>
+                                    <div class="relative">
+                                        <input id="tipe" name="tipe" type="checkbox" class="sr-only" />
+                                        <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                        <div
+                                            class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition">
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-4 hidden grosir-input">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Harga Grosir:</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="number"
+                                name="harga_grosir" id="harga_grosir" placeholder="Harga Grosir">
+                        </div>
+                        <div class="mb-4 hidden minbeli-input">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Minimal Pembelian</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker" type="number"
+                                name="minimal_beli" id="minimal_beli" placeholder="Minimal Pembelian">
+                        </div>
+                        <div class="m-4 absolute bottom-0 left-0 right-0">
+                            <button type="submit"
+                                class="mb-2 w-full hover:bg-green-300 py-1 px-24 bg-green-500 text-white font-bold ">
+                                Tambah
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="h-full bg-white overflow-auto p-5 col-span-2">
+                <h1 class="font-bold text-lg">Daftar Barang</h1>
+
+                <div class="flex flex-col">
+                    <div class="py-2">
+                        <div class="align-middle inline-block min-w-full mr-5">
+                            <div class="shadow overflow-hidden border-b border-gray-200">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Kode Barang
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Nama Barang
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Harga Satuan
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Harga Grosir
+                                            </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Min. Pembelian Grosir
+                                            </th>
+                                            <th scope="col" class="relative px-6 py-3">
+                                                <span class="sr-only">Edit</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200 data-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        window.onload = () => {
+            let barang = ipcRenderer.sendSync('barang:semua')
+            barang.map(data => {
+                dataTable.innerHTML += `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data.kode_barang}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data.nama_barang}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">Rp. ${data.harga_satuan}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">Rp. ${data.harga_grosir} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data.minimal_beli} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button id=${data.id} onclick="deleteBtn(this)" class="delete-btn text-red-600 hover:text-red-900">Hapus</button>
+                    </td>
+                </tr>
+                `
+            })
+        }
+        const formTambah = document.querySelector('form')
+
+        const kodeBarang = document.querySelector('#kode_barang')
+        const namaBarang = document.querySelector('#nama_barang')
+        const hargaSatuan = document.querySelector('#harga_satuan')
+        const hargaGrosir = document.querySelector('#harga_grosir')
+        const minBeli = document.querySelector('#minimal_beli')
+        const tipeToogle = document.querySelector('#tipe')
+        const grosirInput = document.querySelector('.grosir-input')
+        const minbeliInput = document.querySelector('.minbeli-input')
+        const dataTable = document.querySelector('.data-table')
+
+        let tipe = tipeToogle.checked
+
+        let barcode = '';
+        let interval;
+        document.addEventListener('keydown', function (evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    handleBarcode(barcode)
+                barcode = '';
+                return;
+            }
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
+
+        function handleBarcode(scanned_barcode) {
+            document.querySelector('#kode_barang').value = scanned_barcode;
+        }
+
+        tipeToogle.addEventListener('change', () => {
+            tipeToogle.checked ? tipe = true : tipe = false
+            if (tipe) {
+                grosirInput.classList.remove('hidden')
+                minbeliInput.classList.remove('hidden')
+                hargaGrosir.removeAttribute('value')
+                minBeli.removeAttribute('value')
+                hargaGrosir.required = true
+                minBeli.required = true
+
+            } else {
+                grosirInput.classList.add('hidden')
+                minbeliInput.classList.add('hidden')
+                hargaGrosir.setAttribute('value', 0)
+                minBeli.setAttribute('value', 0)
+                hargaGrosir.required = false
+                minBeli.required = false
+            }
+        })
+
+        formTambah.addEventListener('submit', (e) => {
+            e.preventDefault()
+            let dataBarang = {
+                kode_barang: kodeBarang.value,
+                nama_barang: namaBarang.value,
+                harga_satuan: hargaSatuan.value,
+                grosir: tipe,
+                harga_grosir: hargaGrosir.value,
+                minimal_beli: minBeli.value
+            }
+
+            let data = ipcRenderer.sendSync('barang:submit', dataBarang)
+            Toast.fire({
+                icon: 'success',
+                title: 'Berhasil ditambahkan'
+            })
+            // console.log(arg[0])
+            dataTable.innerHTML += `
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data[0].kode_barang}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data[0].nama_barang}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">Rp. ${data[0].harga_satuan}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">Rp. ${data[0].harga_grosir} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">${data[0].minimal_beli} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button id=${data[0].id} onclick="deleteBtn(this)" class="delete-btn text-red-600 hover:text-red-900">Hapus</button>
+                    </td>
+                </tr>
+                `
+        })
+
+        function deleteBtn(elm) {
+            let id = elm.getAttribute('id')
+            let row = elm.parentNode.parentNode
+
+            Swal.fire({
+                text: "Hapus data?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Ya!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (ipcRenderer.sendSync('barang:hapus', id)) {
+                        row.remove()
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Berhasil dihapus'
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

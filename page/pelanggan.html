@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>KasirKu</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../tailwind.css">
+</head>
+
+<body>
+    <main class="h-screen bg-gray-100 relative p-6 pt-36">
+        <nav
+            class="font-sans flex absolute top-0 left-0 right-0 flex-col text-center py-4 px-6 bg-green-500 shadow sm:items-baseline w-full">
+            <div class="text-white flex justify-between w-full items-center">
+                <h1 class="font-bold text-xl">KasirKu</h1>
+                <span id="tanggal" class="font-bold"></span>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reloadBtn">
+                        Reload
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="closeBtn">
+                        X Keluar
+                    </button>
+
+                </div>
+            </div>
+            <div class="flex justify-center text-white bg-green-700 mt-2 w-full">
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menuBarang"
+                    href="barang.html">Barang</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pelanggan.html">Pelanggan</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all font-bold" id="menu"
+                    href="transaksi.html">Transaksi</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="riwayat.html">Riwayat</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pengaturan.html">Pengaturan</a>
+            </div>
+        </nav>
+        <!-- <h1 class="text-2xl text-gray-600">Barang</h1> -->
+        <div class="h-full grid grid-cols-4 gap-4">
+            <div class="relative h-full col-span-3 overflow-auto grid gap-4 grid-rows-4">
+                <div class="bg-white p-5">
+                    <h1 class="font-bold text-lg">Cari Barang</h1>
+
+                </div>
+                <div class="bg-white row-span-3 p-5">
+                    <h1 class="font-bold text-lg">Keranjang Belanja</h1>
+
+                </div>
+
+            </div>
+            <div class="h-full bg-white overflow-auto p-5 relative">
+                <h1 class="font-bold text-lg">Pembayaran</h1>
+
+                <button
+                    class="absolute bottom-0 left-0 right-0 w-full bg-green-500 text-white font-bold mr-2 w-full hover:bg-green-300 py-1 px-24">Selesai</button>
+            </div>
+        </div>
+    </main>
+    <script src="../assets/js/script.js"></script>
+    <script>
+
+
+    </script>
+</body>
+
+</html>

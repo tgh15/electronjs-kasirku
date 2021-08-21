@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>KasirKu</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../tailwind.css">
+</head>
+
+<body>
+    <main class="h-screen bg-gray-100 relative p-6 pt-36">
+        <nav
+            class="font-sans flex absolute top-0 left-0 right-0 flex-col text-center py-4 px-6 bg-green-500 shadow sm:items-baseline w-full">
+            <div class="text-white flex justify-between w-full items-center">
+                <h1 class="font-bold text-xl">KasirKu</h1>
+                <span id="tanggal" class="font-bold"></span>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reloadBtn">
+                        Reload
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="closeBtn">
+                        X Keluar
+                    </button>
+
+                </div>
+            </div>
+            <div class="flex justify-center text-white bg-green-700 mt-2 w-full">
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menuBarang"
+                    href="barang.html">Barang</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pelanggan.html">Pelanggan</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all font-bold" id="menu"
+                    href="transaksi.html">Transaksi</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="riwayat.html">Riwayat</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pengaturan.html">Pengaturan</a>
+            </div>
+        </nav>
+        <!-- <h1 class="text-2xl text-gray-600">Barang</h1> -->
+        <div class="h-full ">
+            <div class=" relative h-full overflow-auto grid gap-4 grid-rows-5">
+                <div class="bg-white p-5">
+                    <h1 class="font-bold text-lg">Cari Transaksi</h1>
+
+                </div>
+                <div class="bg-white row-span-4 p-5">
+                    <h1 class="font-bold text-lg">Riwayat Transaksi</h1>
+                    <div class="flex flex-col">
+                        <div class="py-2">
+                            <div class="align-middle inline-block min-w-full mr-5">
+                                <div class="shadow overflow-hidden border-b border-gray-200">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Invoice
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Tanggal Transaksi
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Total Belanja
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Bayar
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Kembalian
+                                                </th>
+                                                <th scope="col" class="relative px-6 py-3">
+                                                    <span class="sr-only">Edit</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200 data-table">
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">${data.kode_barang}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">${data.nama_barang}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">Rp. ${data.harga_satuan}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">Rp. ${data.harga_grosir} </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                    <button id=${data.id}
+                                                        class="delete-btn text-red-600 hover:text-red-900">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        window.onload = () => {
+            let transaksi = ipcRenderer.sendSync('transaksi:semua', { perPage: 10, currentPage: 1 })
+            console.log(transaksi)
+        }
+
+    </script>
+</body>
+
+</html>

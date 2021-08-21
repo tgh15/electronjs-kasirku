@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>KasirKu</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../tailwind.css">
+</head>
+
+<body>
+    <main class="h-screen bg-gray-100 relative p-6 pt-36">
+        <nav
+            class="font-sans flex absolute top-0 left-0 right-0 flex-col text-center py-4 px-6 bg-green-500 shadow sm:items-baseline w-full">
+            <div class="text-white flex justify-between w-full items-center">
+                <h1 class="font-bold text-xl">KasirKu</h1>
+                <span id="tanggal" class="font-bold"></span>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reloadBtn">
+                        Reload
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" id="closeBtn">
+                        X Keluar
+                    </button>
+
+                </div>
+            </div>
+            <div class="flex justify-center text-white bg-green-700 mt-2 w-full">
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menuBarang"
+                    href="barang.html">Barang</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pelanggan.html">Pelanggan</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all font-bold" id="menu"
+                    href="transaksi.html">Transaksi</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="riwayat.html">Riwayat</a>
+                <a class="p-2 hover:bg-green-300 cursor-pointer transition-all" id="menu"
+                    href="pengaturan.html">Pengaturan</a>
+            </div>
+        </nav>
+        <!-- <h1 class="text-2xl text-gray-600">Barang</h1> -->
+        <div class="h-full grid grid-cols-4 gap-4">
+            <div class="relative h-full col-span-3 overflow-hidden grid gap-4 grid-rows-5">
+                <div class="bg-white z-10 p-5 flex items-center relative">
+                    <div class="flex -mr-px">
+                        <span
+                            class="flex items-center leading-normal bg-green-500 text-white font-bold rounded h-10 rounded-r-none border border-r-0 border-grey-light px-3 whitespace-no-wrap">Cari
+                            Nama Barang</span>
+                    </div>
+                    <div
+                        class="leading-normal overflow-visible h-10 flex-shrink flex-grow rounded flex-auto w-px bg-blue-500">
+                        <input type="text" oninput="carinama()"
+                            class="text-grey-darker w-full border h-10 px-3  border-grey-light rounded rounded-l-none  relative    "
+                            placeholder="Nama Barang" id="nama_barang">
+                        <div class=" bg-white shadow-lg" id="hasilcari">
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white row-span-4 p-5 overflow-auto">
+                    <div class="flex flex-col">
+                        <div class="py-2">
+                            <div class="align-middle inline-block min-w-full mr-5">
+                                <div class="shadow overflow-hidden border-b border-gray-200">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Nama Barang
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Qty
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Harga
+                                                </th>
+                                                <th scope="col"
+                                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    SubTotal
+                                                </th>
+                                                <th scope="col" class="relative px-6 py-3">
+                                                    <span class="sr-only">Edit</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200 data-table">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="h-full overflow-auto ">
+                <div class="bg-white p-5">
+                    <form id="form-bayar">
+                        <div class="">
+                            <div class="mb-3">
+                                <h1 class="block text-grey-darker text-md font-bold">Total Belanja </h1>
+                                <h1 id="total-belanja" class="block text-2xl text-red-600 text-sm font-bold mb-2">Rp.
+                                    0
+                                </h1>
+                            </div>
+                            <div class="mb-3">
+                                <h1 class="block text-grey-darker text-md font-bold">Bayar </h1>
+                                <div class="flex">
+                                    <label for="" class="text-grey-darker py-2 mr-2 text-xl font-bold mb-2">Rp. </label>
+                                    <input type="number" id="bayar" name="test" min="1" required
+                                        class="border rounded block text-grey-darker p-2 text-xl font-bold mb-2 w-full">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <h1 class="block text-grey-darker text-md font-bold mb-2">Kembalian </h1>
+                                <h1 id="kembalian" class="block text-2xl text-red-600 text-sm font-bold mb-2">Rp.
+                                    0
+                                </h1>
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-green-500 text-white font-bold mr-2 w-full hover:bg-green-300 py-1 px-24">Selesai</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        let barcode = '';
+        let interval;
+        document.addEventListener('keydown', function (evt) {
+            if (interval)
+                clearInterval(interval);
+            if (evt.code == 'Enter') {
+                if (barcode)
+                    ipcRenderer.send('barcode', barcode)
+                barcode = '';
+                return;
+            }
+            if (evt.key != 'Shift')
+                barcode += evt.key;
+            interval = setInterval(() => barcode = '', 20);
+        });
+
+        const dataTable = document.querySelector('.data-table')
+
+        let cart = []
+
+        ipcRenderer.on('barang', (e, data) => {
+            if (data == undefined) {
+                return Toast.fire({
+                    icon: 'error',
+                    title: 'Tidak ditemukan'
+                })
+            }
+
+            addBarangToCart(data)
+        })
+
+        function addBarangToCart(data) {
+            if (cart.find(barang => barang.id === data.id)) {
+                let row = document.querySelector(`#row-${data.id}`)
+                let indexBarang = cart.findIndex(barang => barang.id == data.id)
+                cart[indexBarang].qty += 1
+
+                triggerCart(indexBarang, row, 1)
+
+                cart[indexBarang].total_harga += cart[indexBarang].harga
+                row.children[1].children[0].children[0].children[1].setAttribute('value', cart[indexBarang].qty)
+                row.children[1].children[0].children[0].children[1].value = cart[indexBarang].qty
+                row.children[3].children[0].innerHTML = 'Rp. ' + formatangka(cart[indexBarang].total_harga)
+                // console.log(cart[indexBarang])
+                triggerTotal()
+                return
+            }
+            data.qty = 1
+            data.harga = data.harga_satuan
+            data.total_harga = data.harga * data.qty
+            cart.push(data)
+            dataTable.innerHTML += `
+                <tr id=row-${data.id}>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">${data.nama_barang}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900 flex justify-between">
+                            <div class="flex flex-wrap items-stretch w-full relative">
+                                <div class="flex -mr-px">
+                                </div>
+                                <input id="${data.id}" value=${data.qty} oninput="ubahQty(${data.id})" type="number" min="1"
+                                    class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-8 font-bold text-center border-grey-light px-3 relative">
+                                <div class="flex -mr-px">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">Rp. ${formatangka(data.harga)}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">Rp. ${formatangka(data.total_harga)} </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button id=${data.id} onclick="hapus(${data.id})" class="text-red-600 hover:text-red-900">Hapus</button>
+                    </td>
+                </tr>
+                `
+            triggerTotal()
+        }
+
+        function ubahQty(e) {
+            let row = document.querySelector(`#row-${e}`)
+            let value = document.getElementById(e).value
+            if (value == '') return
+            let indexBarang = cart.findIndex(barang => barang.id == e)
+            cart[indexBarang].qty = parseInt(value)
+            console.log(value)
+            triggerCart(indexBarang, row, value)
+            cart[indexBarang].total_harga = cart[indexBarang].harga * cart[indexBarang].qty
+            // console.log(cart[indexBarang])
+            row.children[1].children[0].children[0].children[1].setAttribute('value', cart[indexBarang].qty)
+            row.children[3].children[0].innerHTML = 'Rp. ' + formatangka(cart[indexBarang].total_harga)
+            triggerTotal()
+        }
+
+        function triggerCart(idx, row, value) {
+            if (cart[idx].grosir === 1 && cart[idx].qty >= cart[idx].minimal_beli) {
+                cart[idx].harga = cart[idx].harga_grosir
+                row.children[2].children[0].innerHTML = 'Rp. ' + formatangka(cart[idx].harga)
+            } else {
+                cart[idx].harga = cart[idx].harga_satuan
+                row.children[2].children[0].innerHTML = 'Rp. ' + formatangka(cart[idx].harga)
+            }
+            return cart[idx].harga
+        }
+
+        function carinama() {
+            let inputCariValue = document.querySelector('#nama_barang').value
+            let hasilcari = document.querySelector('#hasilcari')
+            if (inputCariValue == '') {
+                hasilcari.innerHTML = ''
+                return
+            }
+            ipcRenderer.send('carinama', inputCariValue)
+        }
+
+        ipcRenderer.on('hasilcari', (e, carinama) => {
+            hasilcari.innerHTML = ''
+            if (carinama.length == 0) {
+                hasilcari.innerHTML = `
+                    <ul class="flex w-full justify-center p-4 hover:bg-gray-200 cursor-pointer">
+                        <li class="font-bold">Tidak Ditemukan</li>
+                    </ul>
+                `
+                return
+            }
+            carinama.map(hasil => {
+                hasilcari.innerHTML += `
+                <ul onclick='addCariNamaToCart(${JSON.stringify(hasil)})' class="flex w-full items-center justify-between p-4 hover:bg-gray-200 border-b cursor-pointer">
+                    <li>${hasil.nama_barang}</li>
+                    <ul>
+                        <li>Harga Satuan Rp. ${formatangka(hasil.harga_satuan)}</li>
+                        ${hasil.grosir ? '<li>Harga Grosir  Rp. ' + formatangka(hasil.harga_grosir) + '</li>' : ''}
+                    </ul>
+                </ul>
+                `
+            })
+        })
+
+        function addCariNamaToCart(data) {
+            // console.log(data)
+            addBarangToCart(data)
+            hasilcari.innerHTML = ''
+            document.querySelector('#nama_barang').value = ''
+        }
+
+        function hapus(id) {
+            console.log(id)
+            console.log(cart)
+            cart = cart.filter(d => d.id !== id)
+            console.log(cart)
+            document.querySelector(`#row-${id}`).remove()
+            triggerTotal()
+        }
+
+        let totalBelanja
+        let pay
+        let kembali
+
+        function triggerTotal() {
+            totalBelanja = cart.reduce((n, { total_harga }) => n + total_harga, 0)
+            document.querySelector('#total-belanja').innerHTML = 'Rp. ' + formatangka(totalBelanja)
+            document.querySelector('#bayar').value = ''
+            document.querySelector('#kembalian').innerHTML = 'Rp. ' + 0
+        }
+
+        const bayar = document.querySelector('#bayar')
+        const kembalian = document.querySelector('#kembalian')
+        bayar.addEventListener('input', (e) => {
+            pay = e.target.value
+            // console.log(pay)
+            if (totalBelanja > 0) {
+                kembali = pay - totalBelanja
+                kembalian.innerHTML = `Rp. ${formatangka(kembali)}`
+                if (e.target.value < totalBelanja) {
+                    kembalian.innerHTML = 'Pembayaran Kurang'
+                }
+            }
+        }, false)
+
+        const formBayar = document.querySelector('#form-bayar')
+        formBayar.addEventListener('submit', (e) => {
+            e.preventDefault()
+            let print = {
+                belanjaan: [
+                ]
+            }
+            cart.map(d => {
+                print.belanjaan.push({ nama_barang: d.nama_barang, qty: d.qty, harga: formatangka(d.harga), subtotal: formatangka(d.total_harga) })
+            })
+            print.harga_total = formatangka(totalBelanja)
+            print.bayar = formatangka(pay)
+            print.kembalian = formatangka(kembali)
+            print.tanggal = generateTanggal()
+            print.pelanggan = 'UMUM'
+            console.log(print.bayar.replace(',', ''))
+            let sendPrint = ipcRenderer.sendSync('print', print)
+            // console.log(print)
+            if (sendPrint) {
+                cart = []
+                document.querySelector('tbody').innerHTML = ''
+                triggerTotal()
+                return Toast.fire({
+                    icon: 'success',
+                    title: 'Transaksi sukses'
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

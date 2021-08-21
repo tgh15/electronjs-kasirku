@@ -1,0 +1,26 @@
+{
+  "name": "kasir",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . electron-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-pos-printer": "^1.2.4",
+    "knex": "^0.21.21",
+    "knex-paginate": "^2.2.1",
+    "mysql": "^2.18.1",
+    "sweetalert2": "^11.1.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.1",
+    "electron": "^13.2.1",
+    "electron-packager": "^15.3.0",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
+  }
+}
