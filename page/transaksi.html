@@ -109,7 +109,7 @@
                                 <h1 class="block text-grey-darker text-md font-bold">Bayar </h1>
                                 <div class="flex">
                                     <label for="" class="text-grey-darker py-2 mr-2 text-xl font-bold mb-2">Rp. </label>
-                                    <input type="number" id="bayar" name="test" min="1" required
+                                    <input type="text" id="bayar" name="test" min="1" required
                                         class="border rounded block text-grey-darker p-2 text-xl font-bold mb-2 w-full">
                                 </div>
                             </div>
@@ -300,20 +300,25 @@
         const bayar = document.querySelector('#bayar')
         const kembalian = document.querySelector('#kembalian')
         bayar.addEventListener('input', (e) => {
-            pay = e.target.value
-            // console.log(pay)
+            // if (bayar.value !== '') {
+            // }
+            bayar.value = parseInt(bayar.value.replace(/\D/g, ''), 10).toLocaleString();
+            // return console.log(parseInt(e.target.value.replace(',', '')))
+            pay = parseInt(e.target.value.replace(/,/g, ''))
+            console.log(pay)
             if (totalBelanja > 0) {
                 kembali = pay - totalBelanja
                 kembalian.innerHTML = `Rp. ${formatangka(kembali)}`
-                if (e.target.value < totalBelanja) {
+                if (pay < totalBelanja) {
                     kembalian.innerHTML = 'Pembayaran Kurang'
                 }
             }
-        }, false)
+        })
 
         const formBayar = document.querySelector('#form-bayar')
         formBayar.addEventListener('submit', (e) => {
             e.preventDefault()
+            if (cart == []) return false
             let print = {
                 belanjaan: [
                 ]
@@ -326,7 +331,7 @@
             print.kembalian = formatangka(kembali)
             print.tanggal = generateTanggal()
             print.pelanggan = 'UMUM'
-            console.log(print.bayar.replace(',', ''))
+            console.log(print)
             let sendPrint = ipcRenderer.sendSync('print', print)
             // console.log(print)
             if (sendPrint) {

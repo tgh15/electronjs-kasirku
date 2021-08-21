@@ -168,22 +168,24 @@ ipcMain.on('print', (e, arg) => {
         silent: true,
     }
 
+    console.log(parseInt(arg.harga_total.replace(/,/g, '')))
+
     knex('transaksi').insert({
         belanjaan: JSON.stringify(arg.belanjaan),
         invoice: arg.invoice,
-        harga_total: arg.harga_total.replace(',', ''),
-        bayar: arg.bayar.replace(',', ''),
-        kembalian: arg.kembalian.replace(',', '')
+        harga_total: parseInt(arg.harga_total.replace(/,/g, '')),
+        bayar: parseInt(arg.bayar.replace(/,/g, '')),
+        kembalian: parseInt(arg.kembalian.replace(/,/g, ''))
     }).then(function (result) {
         e.returnValue = true
     }).catch(err => console.log(err))
 
-    PosPrinter.print(data, options)
-        .then(() => {
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+    // PosPrinter.print(data, options)
+    //     .then(() => {
+    //     })
+    //     .catch((error) => {
+    //         console.log(error)
+    //     });
 })
 
 ipcMain.on('transaksi:semua', (e, arg) => {
